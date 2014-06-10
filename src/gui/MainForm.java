@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
@@ -22,7 +22,7 @@ public class MainForm {
     private static final int TEXT_HEIGHT = 10;
     private static final int TEXT_WIDTH = 40;
 
-    public static void main(String[] args) {
+    public static void initGUI() {
         JFrame f = new JFrame(TITLE);
         f = Boxify(f);
         f.setLocationRelativeTo(null);
