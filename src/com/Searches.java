@@ -60,6 +60,10 @@ public class Searches {
 
 	private boolean binarySearch(String nameToFind, byte typeOfSearch) {
 		boolean out = false;
+		
+		Reservation[] reservationArray = null;
+		// this variable was missing and I did not see it in any classes -Joe
+		// TODO: properly initialize the array
 
 		int midpoint = reservationArray.length / 2;
 
