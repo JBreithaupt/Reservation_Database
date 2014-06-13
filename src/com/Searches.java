@@ -1,5 +1,7 @@
 package com;
 
+import java.util.List;
+
 import Calendar.DateAD;
 
 /**
@@ -25,6 +27,20 @@ public class Searches {
 	public static final byte DEPARTURE = 2;
 	public static final byte PARTIAL = 3;
 
+	private List<Reservation> reservationList;
+	private List<Reservation> matchingList;
+
+	/**
+	 * converts a Reservation array to a List.
+	 * 
+	 * @param reservationArray
+	 *            a Reservation array
+	 */
+	private void toList(Reservation[] reservationArray) {
+		for (Reservation res : reservationArray) {
+			reservationList.add(res);
+		}
+	}
 
 	/**
 	 * @return the toSearchFor
@@ -51,7 +67,7 @@ public class Searches {
 	 * @param typeOfSearch
 	 *            the byte representing the type of search either 0 or 3 for
 	 *            this search
-
+	 * 
 	 *            anArray of Reservations
 	 * @param nameToFind
 	 *            the Name being searched for.
@@ -60,30 +76,28 @@ public class Searches {
 
 	private boolean binarySearch(String nameToFind, byte typeOfSearch) {
 		boolean out = false;
+
 		
-		Reservation[] reservationArray = null;
-		// this variable was missing and I did not see it in any classes -Joe
-		// TODO: properly initialize the array
 
-		int midpoint = reservationArray.length / 2;
+		int midpoint = reservationList.size()/ 2;
 
-		switch(typeOfSearch) {
+		switch (typeOfSearch) {
 		case 0:
-			while (reservationArray[midpoint].getName() != nameToFind) {
+			while (reservationList.get(midpoint).getName().toLowerCase() != nameToFind
+					.toLowerCase() && reservationList.size() > 2) {
 
 			}
 			break;
 		case 1:
 
-		while (reservationArray[midpoint].getName() != nameToFind) {
+			while (reservationList.get(midpoint).getName().contains(nameToFind)) {
+				
 
-
-		}
+			}
 		}
 
 		return out;
 	}
-
 
 	/**
 	 * 
@@ -93,13 +107,10 @@ public class Searches {
 	 *            the Date to find
 	 * @param typeOfSearch
 	 *            the type of search either 1 or 2 for this search.
-	 * @return
-	/*
-	 * I think this is the wrong way to search for the dates since I can't
-	 * override the method with 2 methods only have the DateAD param and
-	 * Comparable[] param, I'm thinking I may just use a built in search for
-	 * those two.
-
+	 * @return /* I think this is the wrong way to search for the dates since I
+	 *         can't override the method with 2 methods only have the DateAD
+	 *         param and Comparable[] param, I'm thinking I may just use a built
+	 *         in search for those two.
 	 */
 	private boolean binarySearch(DateAD dateToFind, byte typeOfSearch) {
 		return false;
