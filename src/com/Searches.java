@@ -74,29 +74,39 @@ public class Searches {
 	 * @return
 	 */
 
-	private boolean binarySearch(String nameToFind, byte typeOfSearch) {
-		boolean out = false;
-
-		
-
-		int midpoint = reservationList.size()/ 2;
+	private void binarySearch(String nameToFind, byte typeOfSearch) {
 
 		switch (typeOfSearch) {
 		case 0:
-			while (reservationList.get(midpoint).getName().toLowerCase() != nameToFind
-					.toLowerCase() && reservationList.size() > 2) {
-
+			while (reservationList.size() > 2) {
+				int midpoint = reservationList.size() / 2;
+				if (reservationList.get(midpoint).getName().toLowerCase() != nameToFind
+						.toLowerCase()) {
+					if (reservationList.get(midpoint).getName()
+							.compareToIgnoreCase(nameToFind) < 0) {
+						List<Reservation> newList = reservationList.subList(0,
+								midpoint);
+						reservationList.clear();
+						reservationList = newList;
+					} else {
+						List<Reservation> newList = reservationList.subList(
+								midpoint, reservationList.size());
+						reservationList.clear();
+						reservationList = newList;
+					}
+				}
+				else{
+					matchingList.add(reservationList.get(midpoint));
+				}
 			}
-			break;
-		case 1:
 
+		case 1:
+			int midpoint = reservationList.size()/ 2;
 			while (reservationList.get(midpoint).getName().contains(nameToFind)) {
-				
 
 			}
 		}
 
-		return out;
 	}
 
 	/**
@@ -117,12 +127,16 @@ public class Searches {
 
 	}
 
-	public boolean search(Object toFind, byte typeOfSearch) {
-		boolean out = false;
+	public Reservation[] search(Object toFind, byte typeOfSearch) {
+		
 		if (typeOfSearch == NAME || typeOfSearch == PARTIAL) {
-			out = binarySearch((String) toFind, typeOfSearch);
+			binarySearch((String)toFind, typeOfSearch);
 		} else if (typeOfSearch == ARRIVAL || typeOfSearch == DEPARTURE) {
-			out = binarySearch((DateAD) toFind, typeOfSearch);
+			binarySearch((DateAD)toFind, typeOfSearch);
+		}
+		Reservation[] out = new Reservation[matchingList.size()];
+		for(int i = 0; i < matchingList.size(); i++){
+			out[i] = matchingList.get(i);
 		}
 		return out;
 	}
