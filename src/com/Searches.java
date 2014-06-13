@@ -36,9 +36,26 @@ public class Searches {
 	 * @param reservationArray
 	 *            a Reservation array
 	 */
-	private void toList(Reservation[] reservationArray) {
-		for (Reservation res : reservationArray) {
-			reservationList.add(res);
+	private void toList(Reservation[] reservationArray, int sortBy) {
+		switch (sortBy) {
+		case 0:
+		case 3:
+			for (int i = 0; i < reservationArray.length; i++) {
+				reservationList.add(reservationArray[Database.nameSort[i]]);
+			}
+			break;
+		case 1:
+			for (int i = 0; i < reservationArray.length; i++) {
+				reservationList
+						.add(reservationArray[Database.dateArriveSort[i]]);
+			}
+			break;
+		case 2:
+			for (int i = 0; i < reservationArray.length; i++) {
+				reservationList
+						.add(reservationArray[Database.dateDepartSort[i]]);
+			}
+			break;
 		}
 	}
 
@@ -75,7 +92,7 @@ public class Searches {
 	 */
 
 	private void binarySearch(String nameToFind, byte typeOfSearch) {
-
+		List<Reservation> newList = null;
 		switch (typeOfSearch) {
 		case 0:
 			while (reservationList.size() > 2) {
@@ -84,29 +101,59 @@ public class Searches {
 						.toLowerCase()) {
 					if (reservationList.get(midpoint).getName()
 							.compareToIgnoreCase(nameToFind) < 0) {
-						List<Reservation> newList = reservationList.subList(0,
-								midpoint);
+						newList = reservationList.subList(0, midpoint);
 						reservationList.clear();
 						reservationList = newList;
 					} else {
-						List<Reservation> newList = reservationList.subList(
-								midpoint, reservationList.size());
+						newList = reservationList.subList(midpoint,
+								reservationList.size());
 						reservationList.clear();
 						reservationList = newList;
 					}
-				}
-				else{
+				} else {
 					matchingList.add(reservationList.get(midpoint));
 				}
 			}
+			if (reservationList.get(1).getName()
+					.compareToIgnoreCase(nameToFind) == 0) {
+				newList.add(reservationList.get(1));
+			}
+			if (reservationList.get(2).getName()
+					.compareToIgnoreCase(nameToFind) == 0) {
+				newList.add(reservationList.get(2));
+			}
 
 		case 1:
-			int midpoint = reservationList.size()/ 2;
-			while (reservationList.get(midpoint).getName().contains(nameToFind)) {
 
+			while (reservationList.size() > 2) {
+				int midpoint = reservationList.size() / 2;
+
+				if (!reservationList.get(midpoint).getName().toLowerCase()
+						.contains(nameToFind.toLowerCase())) {
+					if (reservationList.get(midpoint).getName()
+							.compareToIgnoreCase(nameToFind) < 0) {
+						newList = reservationList.subList(0, midpoint);
+						reservationList.clear();
+						reservationList = newList;
+					} else {
+						newList = reservationList.subList(midpoint,
+								reservationList.size());
+						reservationList.clear();
+						reservationList = newList;
+					}
+				} else {
+					matchingList.add(reservationList.get(midpoint));
+				}
+			}
+			if (reservationList.get(1).getName()
+					.contains(nameToFind.toLowerCase())) {
+				newList.add(reservationList.get(1));
+			}
+			if (reservationList.get(2).getName()
+					.contains(nameToFind.toLowerCase())) {
+				newList.add(reservationList.get(2));
 			}
 		}
-
 	}
 
 	/**
@@ -128,14 +175,15 @@ public class Searches {
 	}
 
 	public Reservation[] search(Object toFind, byte typeOfSearch) {
+		toList(Database.reservations, typeOfSearch);
 		
 		if (typeOfSearch == NAME || typeOfSearch == PARTIAL) {
-			binarySearch((String)toFind, typeOfSearch);
+			binarySearch((String) toFind, typeOfSearch);
 		} else if (typeOfSearch == ARRIVAL || typeOfSearch == DEPARTURE) {
-			binarySearch((DateAD)toFind, typeOfSearch);
+			binarySearch((DateAD) toFind, typeOfSearch);
 		}
 		Reservation[] out = new Reservation[matchingList.size()];
-		for(int i = 0; i < matchingList.size(); i++){
+		for (int i = 0; i < matchingList.size(); i++) {
 			out[i] = matchingList.get(i);
 		}
 		return out;
