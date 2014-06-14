@@ -97,7 +97,7 @@ public class Searches {
 	private void binarySearch(String nameToFind, byte typeOfSearch) {
 		List<Reservation> newList = null;
 		switch (typeOfSearch) {
-		case 0:
+		case NAME:
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
 				if (reservationList.get(midpoint).getName().toLowerCase() != nameToFind
@@ -126,7 +126,7 @@ public class Searches {
 				newList.add(reservationList.get(2));
 			}
 
-		case 1:
+		case PARTIAL:
 
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
@@ -167,13 +167,55 @@ public class Searches {
 	 *            the Date to find
 	 * @param typeOfSearch
 	 *            the type of search either 1 or 2 for this search.
-	 * @return /* I think this is the wrong way to search for the dates since I
-	 *         can't override the method with 2 methods only have the DateAD
-	 *         param and Comparable[] param, I'm thinking I may just use a built
-	 *         in search for those two.
 	 */
 	private void binarySearch(DateAD dateToFind, byte typeOfSearch) {
-		return false;
+		List<Reservation> newList = null;
+		switch(typeOfSearch){
+		case ARRIVAL:
+			while (reservationList.size() > 2) {
+				int midpoint = reservationList.size() / 2;
+				if (reservationList.get(midpoint).getDateArrival() != dateToFind) {
+					if (reservationList.get(midpoint).getDateArrival().compareTo(dateToFind) < 0) {
+						newList = reservationList.subList(0, midpoint);
+						reservationList.clear();
+						reservationList = newList;
+					} else {
+						newList = reservationList.subList(midpoint,
+								reservationList.size());
+						reservationList.clear();
+						reservationList = newList;
+					}
+				} else {
+					matchingList.add(reservationList.get(midpoint));
+				}
+			}
+			if (reservationList.get(1).getDateArrival().equals(dateToFind)) {
+				newList.add(reservationList.get(1));
+			}
+			if (reservationList.get(2).getDateArrival().equals(dateToFind)) {
+				newList.add(reservationList.get(2));
+			}
+			break;
+		case DEPARTURE:
+			while (reservationList.size() > 2) {
+				int midpoint = reservationList.size() / 2;
+				if (reservationList.get(midpoint).getDateDepart() != dateToFind) {
+					if (reservationList.get(midpoint).getDateDepart().compareTo(dateToFind) < 0) {
+						newList = reservationList.subList(0, midpoint);
+						reservationList.clear();
+						reservationList = newList;
+					} else {
+						newList = reservationList.subList(midpoint,
+								reservationList.size());
+						reservationList.clear();
+						reservationList = newList;
+					}
+				} else {
+					matchingList.add(reservationList.get(midpoint));
+				}
+			}
+			break;
+		}
 
 	}
 
