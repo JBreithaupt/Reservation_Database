@@ -18,10 +18,7 @@ public class Searches {
 
 	/*
 	 * A private byte representing the possible choices of what to search for.
-	 * Name: 0 
-	 * Arrival Date: 1 
-	 * Departure Date: 2 
-	 * Partial Name: 3
+	 * Name: 0 Arrival Date: 1 Departure Date: 2 Partial Name: 3
 	 */
 	private byte toSearchFor = 0;
 
@@ -170,12 +167,13 @@ public class Searches {
 	 */
 	private void binarySearch(DateAD dateToFind, byte typeOfSearch) {
 		List<Reservation> newList = null;
-		switch(typeOfSearch){
+		switch (typeOfSearch) {
 		case ARRIVAL:
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
 				if (reservationList.get(midpoint).getDateArrival() != dateToFind) {
-					if (reservationList.get(midpoint).getDateArrival().compareTo(dateToFind) < 0) {
+					if (reservationList.get(midpoint).getDateArrival()
+							.compareTo(dateToFind) < 0) {
 						newList = reservationList.subList(0, midpoint);
 						reservationList.clear();
 						reservationList = newList;
@@ -200,7 +198,8 @@ public class Searches {
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
 				if (reservationList.get(midpoint).getDateDepart() != dateToFind) {
-					if (reservationList.get(midpoint).getDateDepart().compareTo(dateToFind) < 0) {
+					if (reservationList.get(midpoint).getDateDepart()
+							.compareTo(dateToFind) < 0) {
 						newList = reservationList.subList(0, midpoint);
 						reservationList.clear();
 						reservationList = newList;
@@ -214,14 +213,29 @@ public class Searches {
 					matchingList.add(reservationList.get(midpoint));
 				}
 			}
+			if (reservationList.get(1).getDateArrival().equals(dateToFind)) {
+				newList.add(reservationList.get(1));
+			}
+			if (reservationList.get(2).getDateArrival().equals(dateToFind)) {
+				newList.add(reservationList.get(2));
+			}
 			break;
 		}
 
 	}
 
+	/**
+	 * 
+	 * @param toFind
+	 *            the "object" we are looking for, either a String or DateAD
+	 * @param typeOfSearch
+	 *            the type of search as specified above.
+	 * @return the reservation array that contains all Reservations matching the
+	 *         search
+	 */
 	public Reservation[] search(Object toFind, byte typeOfSearch) {
 		toList(Database.reservations, typeOfSearch);
-		
+
 		if (typeOfSearch == NAME || typeOfSearch == PARTIAL) {
 			binarySearch((String) toFind, typeOfSearch);
 		} else if (typeOfSearch == ARRIVAL || typeOfSearch == DEPARTURE) {

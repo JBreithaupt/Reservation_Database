@@ -4,13 +4,12 @@ import java.util.Arrays;
 
 /**
  * Sorting of a comparable array.
+ * 
  * @author Christopher Dombroski
  * @version 1.0
- *
- *Tested version 1.0 on:
- *AMD A-8 3850
- *8 gig DDR3 RAM
- *Windows 7 Ultimate
+ * 
+ *          Tested version 1.0 on: AMD A-8 3850 8 gig DDR3 RAM Windows 7
+ *          Ultimate
  */
 @SuppressWarnings("rawtypes")
 public class Sorts {
