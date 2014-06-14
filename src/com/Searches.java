@@ -18,7 +18,10 @@ public class Searches {
 
 	/*
 	 * A private byte representing the possible choices of what to search for.
-	 * Name: 0 Arrival Date: 1 Departure Date: 2 Partial Name: 3
+	 * Name: 0 
+	 * Arrival Date: 1 
+	 * Departure Date: 2 
+	 * Partial Name: 3
 	 */
 	private byte toSearchFor = 0;
 
@@ -169,7 +172,7 @@ public class Searches {
 	 *         param and Comparable[] param, I'm thinking I may just use a built
 	 *         in search for those two.
 	 */
-	private boolean binarySearch(DateAD dateToFind, byte typeOfSearch) {
+	private void binarySearch(DateAD dateToFind, byte typeOfSearch) {
 		return false;
 
 	}
