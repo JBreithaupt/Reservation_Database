@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,6 +19,10 @@ import com.*;
  * 1866 MHz GSkill Ram Using Eclipse Version: Kepler Service Release 2
  * 
  * @author Joe Breithaupt
+ * 
+ *         Known Bugs: Searching by Dates does not work. The binary search is
+ *         there, however there is no parsing method to allow the creation of a
+ *         dateAD from string passed in by user.
  */
 public class MainForm implements ActionListener {
 
@@ -124,16 +127,18 @@ public class MainForm implements ActionListener {
 			// toSearchFor variable in searches. Then call the search method.
 			// I'm not sure what you've got going on here to fix it myself, but
 			// I'm pretty sure that's all we're missing.
-			
+
 			// seen 6/14/14 -Joe
-			// Bradley couldn't wait and fixed.  6/15/2014 -Bradley
+			// Bradley couldn't wait and fixed. 6/15/2014 -Bradley
 			/*
 			 * toSearchFor = Name: 0 Arrival Date: 1 Departure Date: 2 Partial
 			 * Name: 3
 			 */
-			
-			DateAD dateToFind;
+
+			//DateAD dateToFind;
+			searcher = new Searches();
 			if (!searchBox.getText().isEmpty()) {
+
 				if (radioFullName.isSelected()) {
 					searcher.setToSearchFor(Reservation.NAME);
 					results = searcher.search(searchBox.getText(),
@@ -146,16 +151,19 @@ public class MainForm implements ActionListener {
 							searcher.getToSearchFor());
 				}
 				if (radioDateEnd.isSelected()) {
-					searcher.setToSearchFor(Reservation.DEPART);
-					dateToFind = new DateAD(searchBox.getText());
-					results = searcher.search(dateToFind,
-							searcher.getToSearchFor());
+					// searcher.setToSearchFor(Reservation.DEPART);
+					// dateToFind = new DateAD(searchBox.getText());
+					// results = searcher.search(dateToFind,
+					// searcher.getToSearchFor());
 				}
 				if (radioDate.isSelected()) {
-					searcher.setToSearchFor(Reservation.ARRIVAL);
-					dateToFind = new DateAD(searchBox.getText());
-					results = searcher.search(dateToFind,
-							searcher.getToSearchFor());
+					// Code for searching dateADs is there, but due to family
+					// matters BP was unable to finish the parsing method to
+					// allow the building of a DateAD
+					// searcher.setToSearchFor(Reservation.ARRIVAL);
+					// dateToFind = new DateAD(searchBox.getText());
+					// results = searcher.search(dateToFind,
+					// searcher.getToSearchFor());
 				}
 				StringBuilder view = new StringBuilder();
 				for (Reservation a : results) {
@@ -173,14 +181,13 @@ public class MainForm implements ActionListener {
 			searchBox.setText(null);
 			radioContains.setSelected(true);
 		default:
-			//System.out.println("That action is not yet handled");
+			// System.out.println("That action is not yet handled");
 			break;
 		}
 	}
 
-	
 	private static Reservation[] results;
-	private Searches searcher = new Searches();
+	private Searches searcher;
 	private static JRadioButton radioDateEnd;
 	private static JButton buttonClear;
 	private static JButton buttonExit;

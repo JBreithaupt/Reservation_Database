@@ -1,0 +1,53 @@
+Testing By Bradley Pellegrini on Project 4:
+
+Test 1:
+DB File: 
+Bookings_db.dat
+Search Mode:
+Contains Text
+Searching For:
+Bradle
+Number of Results Expected:
+3
+Number of Results Received:
+2
+
+Reason For Difference:
+This is a known issue with the binary search.  I believe it is an issue
+that occurs when the lists size becomes under a certain size during a 
+search of a name that occurs on the edge.  To test a larger db would be
+necessary.
+
+
+Test 2:
+DB File: 
+Bookings_db.dat
+Search Mode:
+Full Name
+Searching For:
+Christopher Dombroski
+Number of Results Expected:
+3
+Number of Results Received:
+2
+Reason For Difference:
+Expected to be an issue with the name being dead centre of the binary
+ search but it is unsure what the cause is.  This would require more
+ testing and a larger DB file which CD was unable to provide.
+
+
+Test 3:
+DB File: 
+Bookings_db.dat
+Search Mode:
+Contains Text
+Searching For:
+Christopher Dombroski
+Number of Results Expected:
+3
+Number of Results Received:
+3
+Reason For Difference:
+No Difference.
+
+

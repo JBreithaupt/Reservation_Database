@@ -14,6 +14,11 @@ import Calendar.DateAD;
  * 
  * @version 1.0
  * @author Bradley
+ * 
+ *         Known Bugs: Does not always return correct number of matching results
+ *         for binary search. this bug's cause is unknown in v1.1 but it is
+ *         believed to be an issue with a specific sized list being searched.
+ * 
  */
 public class Searches {
 
@@ -235,8 +240,9 @@ public class Searches {
 		for (int i = 0; i < matchingList.size(); i++) {
 			out[i] = matchingList.get(i);
 		}
-		System.out.println(matchingList.toString());
+		
 		matchingList.clear();
+		reservationList.clear();
 		return out;
 	}
 
@@ -248,6 +254,7 @@ public class Searches {
 	 * @param aString
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private String[] parseString(String aString) {
 		return null;
 
