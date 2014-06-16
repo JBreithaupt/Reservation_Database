@@ -104,6 +104,7 @@ public class Searches {
 					}
 				} else {
 					matchingList.add(reservationList.get(midpoint));
+					reservationList.remove(midpoint);
 				}
 			}
 			if (reservationList.get(1).getName()
@@ -112,7 +113,7 @@ public class Searches {
 			}
 			if (reservationList.get(0).getName()
 					.compareToIgnoreCase(nameToFind) == 0) {
-				newList.add(reservationList.get(2));
+				newList.add(reservationList.get(0));
 			}
 
 		case Reservation.PARTIAL_NAME:
@@ -140,13 +141,13 @@ public class Searches {
 			}
 			if (reservationList.get(0).getName().contains(
 					nameToFind.toLowerCase())) {
-				newList.add(reservationList.get(2));
+				newList.add(reservationList.get(0));
 			}
 		}
 	}
 
 	/**
-	 * 
+	 * This method should do a binarySearch by DateAD.
 	 * @param reservationArray
 	 *            the Array to Search
 	 * @param dateToFind
@@ -176,7 +177,7 @@ public class Searches {
 				newList.add(reservationList.get(1));
 			}
 			if (reservationList.get(0).getDateArrival().equals(dateToFind)) {
-				newList.add(reservationList.get(2));
+				newList.add(reservationList.get(0));
 			}
 			break;
 		case Reservation.DEPART:
@@ -198,7 +199,7 @@ public class Searches {
 				newList.add(reservationList.get(1));
 			}
 			if (reservationList.get(0).getDateArrival().equals(dateToFind)) {
-				newList.add(reservationList.get(2));
+				newList.add(reservationList.get(0));
 			}
 			break;
 		}
@@ -206,7 +207,7 @@ public class Searches {
 	}
 
 	/**
-	 * 
+	 * Search by either DateAD or String (DateAD parsing not implemented).
 	 * @param toFind
 	 *            the "object" we are looking for, either a String or DateAD
 	 * @param typeOfSearch
@@ -220,12 +221,13 @@ public class Searches {
 		if (typeOfSearch == Reservation.NAME || typeOfSearch == Reservation.PARTIAL_NAME) {
 			binarySearch((String) toFind, typeOfSearch);
 		} else if (typeOfSearch == Reservation.ARRIVAL || typeOfSearch == Reservation.DEPART) {
-			binarySearch((DateAD) toFind, typeOfSearch);
+			binarySearch(new DateAD((String) toFind), typeOfSearch);
 		}
 		Reservation[] out = new Reservation[matchingList.size()];
 		for (int i = 0; i < matchingList.size(); i++) {
 			out[i] = matchingList.get(i);
 		}
+		matchingList.clear();
 		return out;
 	}
 }
