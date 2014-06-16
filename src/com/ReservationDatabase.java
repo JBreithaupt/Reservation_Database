@@ -4,6 +4,7 @@ import java.awt.Frame;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import gui.*;
 
@@ -22,6 +23,8 @@ public class ReservationDatabase {
 		} else {
 
 			JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Reservation Binary file", "dat");
+			fc.setFileFilter(filter);
 			int returnVal = JFileChooser.CANCEL_OPTION;
 			returnVal = fc.showOpenDialog(new Frame());
 

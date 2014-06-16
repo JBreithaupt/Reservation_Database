@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -60,6 +61,7 @@ public class MainForm implements ActionListener {
 		radios.add(radioContains);
 		radios.add(radioFullName);
 		radios.add(radioDate);
+		radios.add(radioDateEnd);
 		radioPane.add(radioContains);
 		radioPane.add(radioFullName);
 		radioPane.add(radioDate);
@@ -112,47 +114,51 @@ public class MainForm implements ActionListener {
 			// I'm pretty sure that's all we're missing.
 			
 			// seen 6/14/14 -Joe
-			// Bradley couldn't wait and fixed.  6/16/2014 -Bradley
+			// Bradley couldn't wait and fixed.  6/15/2014 -Bradley
 			/*
 			 * toSearchFor = Name: 0 Arrival Date: 1 Departure Date: 2 Partial
 			 * Name: 3
 			 */
 			
 			DateAD dateToFind;
-			if (radioFullName.isSelected()) {
-				searcher.setToSearchFor(Reservation.NAME);
-				results = searcher.search(searchBox.getText(), searcher.getToSearchFor());
-			}
-			if (radioContains.isSelected()) {
-				searcher.setToSearchFor(Reservation.PARTIAL_NAME);
-				searcher.setToSearchFor(Reservation.NAME);
-				results = searcher.search(searchBox.getText(), searcher.getToSearchFor());
-				
-			}
-			
-			if(radioDateEnd.isSelected()){
-				searcher.setToSearchFor(Reservation.DEPART);
-				dateToFind = new DateAD(searchBox.getText());
-				results = searcher.search(dateToFind, searcher.getToSearchFor());
-			}
-			if(radioDate.isSelected()){
-				searcher.setToSearchFor(Reservation.ARRIVAL);
-				dateToFind = new DateAD(searchBox.getText());
-				results = searcher.search(dateToFind, searcher.getToSearchFor());
-			}
-			String view = new String();
-			for(Reservation a : results){
-				if(view.length() != 0){
-				view = view + "/n" + a.toString();
-				}else{
-					view = a.toString();
+			if (!searchBox.getText().isEmpty()) {
+				if (radioFullName.isSelected()) {
+					searcher.setToSearchFor(Reservation.NAME);
+					results = searcher.search(searchBox.getText(),
+							searcher.getToSearchFor());
 				}
+				if (radioContains.isSelected()) {
+					searcher.setToSearchFor(Reservation.PARTIAL_NAME);
+					searcher.setToSearchFor(Reservation.NAME);
+					results = searcher.search(searchBox.getText(),
+							searcher.getToSearchFor());
+
+				}
+				if (radioDateEnd.isSelected()) {
+					searcher.setToSearchFor(Reservation.DEPART);
+					dateToFind = new DateAD(searchBox.getText());
+					results = searcher.search(dateToFind,
+							searcher.getToSearchFor());
+				}
+				if (radioDate.isSelected()) {
+					searcher.setToSearchFor(Reservation.ARRIVAL);
+					dateToFind = new DateAD(searchBox.getText());
+					results = searcher.search(dateToFind,
+							searcher.getToSearchFor());
+				}
+				StringBuilder view = new StringBuilder();
+				for (Reservation a : results) {
+					if (view.length() != 0) {
+						view.append("/n" + a.toString());
+					} else {
+						view.append(a.toString());
+					}
+				}
+				text.setText(view.toString());
 			}
-			
-			text.setText(view);
 			break;
 		default:
-			System.out.println("That action is not yet handled");
+			//System.out.println("That action is not yet handled");
 			break;
 		}
 	}
