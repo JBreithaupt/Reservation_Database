@@ -88,7 +88,7 @@ public class Searches {
 	 */
 
 	private void binarySearch(String nameToFind, byte typeOfSearch) {
-		List<Reservation> newList = null;
+		List<Reservation> newList = new ArrayList<Reservation>();;
 		switch (typeOfSearch) {
 		case Reservation.NAME:
 			while (reservationList.size() > 2) {
@@ -110,10 +110,10 @@ public class Searches {
 					.compareToIgnoreCase(nameToFind) == 0) {
 				newList.add(reservationList.get(1));
 			}
-//			if (reservationList.get(2).getName()
-//					.compareToIgnoreCase(nameToFind) == 0) {
-//				newList.add(reservationList.get(2));
-//			}
+			if (reservationList.get(0).getName()
+					.compareToIgnoreCase(nameToFind) == 0) {
+				newList.add(reservationList.get(2));
+			}
 
 		case Reservation.PARTIAL_NAME:
 
@@ -131,16 +131,17 @@ public class Searches {
 					}
 				} else {
 					matchingList.add(reservationList.get(midpoint));
+					reservationList.remove(midpoint);
 				}
 			}
 			if (reservationList.get(1).getName().contains(
 					nameToFind.toLowerCase())) {
 				newList.add(reservationList.get(1));
 			}
-//			if (reservationList.get(2).getName().contains(
-//					nameToFind.toLowerCase())) {
-//				newList.add(reservationList.get(2));
-//			}
+			if (reservationList.get(0).getName().contains(
+					nameToFind.toLowerCase())) {
+				newList.add(reservationList.get(2));
+			}
 		}
 	}
 
@@ -154,7 +155,7 @@ public class Searches {
 	 *            the type of search either 1 or 2 for this search.
 	 */
 	private void binarySearch(DateAD dateToFind, byte typeOfSearch) {
-		List<Reservation> newList = null;
+		List<Reservation> newList = new ArrayList<Reservation>();
 		switch (typeOfSearch) {
 		case Reservation.ARRIVAL:
 			while (reservationList.size() > 2) {
@@ -174,7 +175,7 @@ public class Searches {
 			if (reservationList.get(1).getDateArrival().equals(dateToFind)) {
 				newList.add(reservationList.get(1));
 			}
-			if (reservationList.get(2).getDateArrival().equals(dateToFind)) {
+			if (reservationList.get(0).getDateArrival().equals(dateToFind)) {
 				newList.add(reservationList.get(2));
 			}
 			break;
@@ -196,7 +197,7 @@ public class Searches {
 			if (reservationList.get(1).getDateArrival().equals(dateToFind)) {
 				newList.add(reservationList.get(1));
 			}
-			if (reservationList.get(2).getDateArrival().equals(dateToFind)) {
+			if (reservationList.get(0).getDateArrival().equals(dateToFind)) {
 				newList.add(reservationList.get(2));
 			}
 			break;

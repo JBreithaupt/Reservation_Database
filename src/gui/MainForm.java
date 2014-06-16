@@ -148,7 +148,7 @@ public class MainForm implements ActionListener {
 				StringBuilder view = new StringBuilder();
 				for (Reservation a : results) {
 					if (view.length() != 0) {
-						view.append("/n" + a.toString());
+						view.append(a.toString());
 					} else {
 						view.append(a.toString());
 					}
