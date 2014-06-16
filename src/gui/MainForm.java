@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import Calendar.DateAD;
+
+import com.Reservation;
 import com.Searches;
 
 /**
@@ -49,16 +52,19 @@ public class MainForm implements ActionListener {
 		radioContains = new JRadioButton("Contains text");
 		radioContains.addActionListener(new MainForm());
 		radioContains.setSelected(true);
-		radioStarts = new JRadioButton("Begins with text");
-		radioStarts.addActionListener(new MainForm());
-		radioDate = new JRadioButton("Search by Date");
+		radioFullName = new JRadioButton("Search by Full Name");
+		radioFullName.addActionListener(new MainForm());
+		radioDateEnd = new JRadioButton("Search by Departure Date");
+		radioDateEnd.addActionListener(new MainForm());
+		radioDate = new JRadioButton("Search by Arrival Date");
 		radioDate.addActionListener(new MainForm());
 		radios.add(radioContains);
-		radios.add(radioStarts);
+		radios.add(radioFullName);
 		radios.add(radioDate);
 		radioPane.add(radioContains);
-		radioPane.add(radioStarts);
+		radioPane.add(radioFullName);
 		radioPane.add(radioDate);
+		radioPane.add(radioDateEnd);
 
 		text = new JTextArea();
 		text.setColumns(TEXT_WIDTH);
@@ -107,21 +113,43 @@ public class MainForm implements ActionListener {
 			// I'm pretty sure that's all we're missing.
 			
 			// seen 6/14/14 -Joe
-
-			/**
+			/*
 			 * toSearchFor = Name: 0 Arrival Date: 1 Departure Date: 2 Partial
 			 * Name: 3
 			 */
-			if (radioStarts.isSelected()) {
-
+			
+			DateAD dateToFind;
+			if (radioFullName.isSelected()) {
+				searcher.setToSearchFor(Searches.NAME);
+				searcher.search(searchBox.getText(), searcher.getToSearchFor());
 			}
 			if (radioContains.isSelected()) {
-
+				searcher.setToSearchFor(Searches.PARTIAL);
+				searcher.setToSearchFor(Searches.NAME);
+				searcher.search(searchBox.getText(), searcher.getToSearchFor());
+				
 			}
-			if (radioStarts.isSelected()) {
-
+			
+			if(radioDateEnd.isSelected()){
+				searcher.setToSearchFor(Searches.DEPARTURE);
+				dateToFind = new DateAD(searchBox.getText());
+				results = searcher.search(dateToFind, searcher.getToSearchFor());
 			}
-
+			if(radioDate.isSelected()){
+				searcher.setToSearchFor(Searches.ARRIVAL);
+				dateToFind = new DateAD(searchBox.getText());
+				results = searcher.search(dateToFind, searcher.getToSearchFor());
+			}
+			String view = new String();
+			for(Reservation a : results){
+				if(view.length() != 0){
+				view = view + "/n" + a.toString();
+				}else{
+					view = a.toString();
+				}
+			}
+			
+			text.setText(view);
 			break;
 		default:
 			System.out.println("That action is not yet handled");
@@ -129,6 +157,10 @@ public class MainForm implements ActionListener {
 		}
 	}
 
+	
+	private Reservation[] results;
+	private Searches searcher;
+	private static JRadioButton radioDateEnd;
 	private static JButton buttonClear;
 	private static JButton buttonExit;
 	private static JButton buttonSearch;
@@ -136,7 +168,7 @@ public class MainForm implements ActionListener {
 	private static JMenuBar mb;
 	private static JRadioButton radioContains;
 	private static JRadioButton radioDate;
-	private static JRadioButton radioStarts;
+	private static JRadioButton radioFullName;
 	private static JTextArea searchBox;
 	private static JTextArea text;
 }
