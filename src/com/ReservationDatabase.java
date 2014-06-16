@@ -41,8 +41,16 @@ public class ReservationDatabase {
 			}
 
 		}
-
-		Database.load(database);
+		
+		Thread loadThread = new LoadThread(database);
+		
+		loadThread.start();
+		try {
+			loadThread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Database.print();
 		Database.sortAll();
 		MainForm.initGUI();

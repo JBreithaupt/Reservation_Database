@@ -74,3 +74,18 @@ public class Database {
 	}
 
 }
+
+class LoadThread extends Thread {
+	
+	File file;
+	
+	LoadThread(File file) {
+		this.file = file;
+	}
+
+	@Override
+	public void run() {
+		Database.load(file);
+	}
+	
+}
