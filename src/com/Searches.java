@@ -22,11 +22,6 @@ public class Searches {
 	 */
 	private byte toSearchFor = 0;
 
-	public static final byte NAME = 0;
-	public static final byte ARRIVAL = 1;
-	public static final byte DEPARTURE = 2;
-	public static final byte PARTIAL = 3;
-
 	private List<Reservation> reservationList;
 	private List<Reservation> matchingList;
 
@@ -38,19 +33,19 @@ public class Searches {
 	 */
 	private void toList(Reservation[] reservationArray, int sortBy) {
 		switch (sortBy) {
-		case 0:
-		case 3:
+		case Reservation.NAME:
+		case Reservation.PARTIAL_NAME:
 			for (int i = 0; i < reservationArray.length; i++) {
 				reservationList.add(reservationArray[Database.nameSort[i]]);
 			}
 			break;
-		case 1:
+		case Reservation.ARRIVAL:
 			for (int i = 0; i < reservationArray.length; i++) {
 				reservationList
 						.add(reservationArray[Database.dateArriveSort[i]]);
 			}
 			break;
-		case 2:
+		case Reservation.DEPART:
 			for (int i = 0; i < reservationArray.length; i++) {
 				reservationList
 						.add(reservationArray[Database.dateDepartSort[i]]);
@@ -94,7 +89,7 @@ public class Searches {
 	private void binarySearch(String nameToFind, byte typeOfSearch) {
 		List<Reservation> newList = null;
 		switch (typeOfSearch) {
-		case NAME:
+		case Reservation.NAME:
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
 				if (reservationList.get(midpoint).getName().toLowerCase() != nameToFind
@@ -123,7 +118,7 @@ public class Searches {
 				newList.add(reservationList.get(2));
 			}
 
-		case PARTIAL:
+		case Reservation.PARTIAL_NAME:
 
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
@@ -168,7 +163,7 @@ public class Searches {
 	private void binarySearch(DateAD dateToFind, byte typeOfSearch) {
 		List<Reservation> newList = null;
 		switch (typeOfSearch) {
-		case ARRIVAL:
+		case Reservation.ARRIVAL:
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
 				if (reservationList.get(midpoint).getDateArrival() != dateToFind) {
@@ -194,7 +189,7 @@ public class Searches {
 				newList.add(reservationList.get(2));
 			}
 			break;
-		case DEPARTURE:
+		case Reservation.DEPART:
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
 				if (reservationList.get(midpoint).getDateDepart() != dateToFind) {
@@ -236,9 +231,9 @@ public class Searches {
 	public Reservation[] search(Object toFind, byte typeOfSearch) {
 		toList(Database.reservations, typeOfSearch);
 
-		if (typeOfSearch == NAME || typeOfSearch == PARTIAL) {
+		if (typeOfSearch == Reservation.NAME || typeOfSearch == Reservation.PARTIAL_NAME) {
 			binarySearch((String) toFind, typeOfSearch);
-		} else if (typeOfSearch == ARRIVAL || typeOfSearch == DEPARTURE) {
+		} else if (typeOfSearch == Reservation.ARRIVAL || typeOfSearch == Reservation.DEPART) {
 			binarySearch((DateAD) toFind, typeOfSearch);
 		}
 		Reservation[] out = new Reservation[matchingList.size()];

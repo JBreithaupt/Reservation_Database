@@ -20,11 +20,12 @@ public class Reservation implements Serializable, Comparable<Reservation> {
 	private DateAD dateArrival;
 	private DateAD dateDepart;
 
-	final static byte COMPARE_BY_NAME = 0;
-	final static byte COMPARE_BY_DEPART = 1;
-	final static byte COMPARE_BY_ARRIVAL = 2;
+	public final static byte NAME = 0;
+	public final static byte DEPART = 1;
+	public final static byte ARRIVAL = 2;
+	public final static byte PARTIAL_NAME = 3;
 
-	byte compareBy = COMPARE_BY_NAME;
+	byte compareBy = NAME;
 
 	private final static String newline = System.lineSeparator();
 
@@ -110,7 +111,7 @@ public class Reservation implements Serializable, Comparable<Reservation> {
 		int compare = 0;
 
 		switch (compareBy) {
-		case COMPARE_BY_NAME:
+		case NAME:
 			compare = this.getName().compareToIgnoreCase(reservation.getName());
 			if (compare == 0) {
 				compare = this.getDateArrival().compareTo(
@@ -121,7 +122,7 @@ public class Reservation implements Serializable, Comparable<Reservation> {
 						reservation.getDateDepart());
 			}
 			break;
-		case COMPARE_BY_DEPART:
+		case DEPART:
 			compare = this.getDateDepart().compareTo(
 					reservation.getDateDepart());
 			if (compare == 0) {
@@ -133,7 +134,7 @@ public class Reservation implements Serializable, Comparable<Reservation> {
 						reservation.getName());
 			}
 			break;
-		case COMPARE_BY_ARRIVAL:
+		case ARRIVAL:
 			compare = this.getDateArrival().compareTo(
 					reservation.getDateArrival());
 			if (compare == 0) {

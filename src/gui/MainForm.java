@@ -120,23 +120,23 @@ public class MainForm implements ActionListener {
 			
 			DateAD dateToFind;
 			if (radioFullName.isSelected()) {
-				searcher.setToSearchFor(Searches.NAME);
+				searcher.setToSearchFor(Reservation.NAME);
 				searcher.search(searchBox.getText(), searcher.getToSearchFor());
 			}
 			if (radioContains.isSelected()) {
-				searcher.setToSearchFor(Searches.PARTIAL);
-				searcher.setToSearchFor(Searches.NAME);
+				searcher.setToSearchFor(Reservation.PARTIAL_NAME);
+				searcher.setToSearchFor(Reservation.NAME);
 				searcher.search(searchBox.getText(), searcher.getToSearchFor());
 				
 			}
 			
 			if(radioDateEnd.isSelected()){
-				searcher.setToSearchFor(Searches.DEPARTURE);
+				searcher.setToSearchFor(Reservation.DEPART);
 				dateToFind = new DateAD(searchBox.getText());
 				results = searcher.search(dateToFind, searcher.getToSearchFor());
 			}
 			if(radioDate.isSelected()){
-				searcher.setToSearchFor(Searches.ARRIVAL);
+				searcher.setToSearchFor(Reservation.ARRIVAL);
 				dateToFind = new DateAD(searchBox.getText());
 				results = searcher.search(dateToFind, searcher.getToSearchFor());
 			}

@@ -49,5 +49,11 @@ public class Database {
 
 		return loaded;
 	}
+	
+	public static void sortAll() {
+		
+		
+		
+	}
 
 }
