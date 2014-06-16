@@ -97,7 +97,7 @@ public class Searches {
 				if (reservationList.get(midpoint).getName().toLowerCase() != nameToFind
 						.toLowerCase()) {
 					if (reservationList.get(midpoint).getName()
-							.compareToIgnoreCase(nameToFind) < 0) {
+							.compareToIgnoreCase(nameToFind) > 0) {
 						reservationList = reservationList.subList(0, midpoint);
 					} else {
 						reservationList = reservationList.subList(midpoint,
@@ -126,7 +126,7 @@ public class Searches {
 				if (!reservationList.get(midpoint).getName().toLowerCase()
 						.startsWith(nameToFind.toLowerCase())) {
 					if (reservationList.get(midpoint).getName()
-							.compareToIgnoreCase(nameToFind) < 0) {
+							.compareToIgnoreCase(nameToFind) > 0) {
 						reservationList = reservationList.subList(0, midpoint);
 					} else {
 						reservationList = reservationList.subList(midpoint,
