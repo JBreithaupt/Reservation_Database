@@ -13,12 +13,18 @@ import Calendar.DateAD;
  *          Tested version 1.0 on: AMD A-8 3850 8 gig DDR3 RAM Windows 7
  *          Ultimate
  */
-@SuppressWarnings("serial")
 public class Reservation implements Serializable, Comparable<Reservation> {
 
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private DateAD dateArrival;
 	private DateAD dateDepart;
+
+	final static byte COMPARE_BY_NAME = 0;
+	final static byte COMPARE_BY_DEPART = 1;
+	final static byte COMPARE_BY_ARRIVAL = 2;
+
+	byte compareBy = COMPARE_BY_NAME;
 
 	private final static String newline = System.lineSeparator();
 
@@ -102,16 +108,53 @@ public class Reservation implements Serializable, Comparable<Reservation> {
 	@Override
 	public int compareTo(Reservation reservation) {
 		int compare = 0;
-		compare = this.getName().compareToIgnoreCase(reservation.getName());
-		if (compare == 0) {
-			compare = this.getDateArrival().compareTo(
-				reservation.getDateArrival());
-		}
-		if (compare == 0) {
+
+		switch (compareBy) {
+		case COMPARE_BY_NAME:
+			compare = this.getName().compareToIgnoreCase(reservation.getName());
+			if (compare == 0) {
+				compare = this.getDateArrival().compareTo(
+						reservation.getDateArrival());
+			}
+			if (compare == 0) {
+				compare = this.getDateDepart().compareTo(
+						reservation.getDateDepart());
+			}
+			break;
+		case COMPARE_BY_DEPART:
 			compare = this.getDateDepart().compareTo(
-				reservation.getDateDepart());
+					reservation.getDateDepart());
+			if (compare == 0) {
+				compare = this.getDateArrival().compareTo(
+						reservation.getDateArrival());
+			}
+			if (compare == 0) {
+				compare = this.getName().compareToIgnoreCase(
+						reservation.getName());
+			}
+			break;
+		case COMPARE_BY_ARRIVAL:
+			compare = this.getDateArrival().compareTo(
+					reservation.getDateArrival());
+			if (compare == 0) {
+				compare = this.getDateDepart().compareTo(
+						reservation.getDateDepart());
+			}
+			if (compare == 0) {
+				compare = this.getName().compareToIgnoreCase(
+						reservation.getName());
+			}
+			break;
 		}
 
 		return compare;
+	}
+	
+	public static void setCompare(Reservation[] reservations, byte compare) {
+		
+		for (Reservation res : reservations) {
+			
+			res.compareBy = compare;
+		}
 	}
 }
