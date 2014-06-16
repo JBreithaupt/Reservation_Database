@@ -24,7 +24,29 @@ public class MainForm implements ActionListener {
 	private static final int TEXT_HEIGHT = 10;
 	private static final int TEXT_WIDTH = 40;
 	private static final String TITLE = "Reservation Manager";
+	
+	private Reservation[] results;
+	private Searches searcher = new Searches();
+	private static JRadioButton radioDateEnd;
+	private static JButton buttonClear;
+	private static JButton buttonExit;
+	private static JButton buttonSearch;
+	private static JFrame f;
+	private static JMenuBar mb;
+	private static JRadioButton radioContains;
+	private static JRadioButton radioDate;
+	private static JRadioButton radioFullName;
+	private static JTextArea searchBox;
+	private static JTextArea text;
 
+	private void redraw(){
+		text.repaint();
+		
+		f.pack();
+		f.repaint();
+		
+	}
+	
 	private static JFrame Boxify(JFrame f) {
 		JPanel radioPane = new JPanel();
 		radioPane.setLayout(new BoxLayout(radioPane, BoxLayout.Y_AXIS));
@@ -125,7 +147,7 @@ public class MainForm implements ActionListener {
 			}
 			if (radioContains.isSelected()) {
 				searcher.setToSearchFor(Reservation.PARTIAL_NAME);
-				searcher.setToSearchFor(Reservation.NAME);
+				
 				results = searcher.search(searchBox.getText(), searcher.getToSearchFor());
 				
 			}
@@ -150,6 +172,7 @@ public class MainForm implements ActionListener {
 			}
 			
 			text.setText(view);
+			redraw();
 			break;
 		default:
 			System.out.println("That action is not yet handled");
@@ -158,17 +181,5 @@ public class MainForm implements ActionListener {
 	}
 
 	
-	private Reservation[] results;
-	private Searches searcher = new Searches();
-	private static JRadioButton radioDateEnd;
-	private static JButton buttonClear;
-	private static JButton buttonExit;
-	private static JButton buttonSearch;
-	private static JFrame f;
-	private static JMenuBar mb;
-	private static JRadioButton radioContains;
-	private static JRadioButton radioDate;
-	private static JRadioButton radioFullName;
-	private static JTextArea searchBox;
-	private static JTextArea text;
+	
 }

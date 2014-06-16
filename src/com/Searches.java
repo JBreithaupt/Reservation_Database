@@ -153,6 +153,7 @@ public class Searches {
 	 * @param typeOfSearch
 	 *            the type of search either 1 or 2 for this search.
 	 */
+	@SuppressWarnings("null")
 	private void binarySearch(DateAD dateToFind, byte typeOfSearch) {
 		List<Reservation> newList = null;
 		switch (typeOfSearch) {
