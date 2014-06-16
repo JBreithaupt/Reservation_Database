@@ -129,10 +129,9 @@ public class MainForm implements ActionListener {
 				}
 				if (radioContains.isSelected()) {
 					searcher.setToSearchFor(Reservation.PARTIAL_NAME);
-					searcher.setToSearchFor(Reservation.NAME);
+					// searcher.setToSearchFor(Reservation.NAME);
 					results = searcher.search(searchBox.getText(),
 							searcher.getToSearchFor());
-
 				}
 				if (radioDateEnd.isSelected()) {
 					searcher.setToSearchFor(Reservation.DEPART);
@@ -157,6 +156,10 @@ public class MainForm implements ActionListener {
 				text.setText(view.toString());
 			}
 			break;
+		case "clear":
+			text.setText(null);
+			searchBox.setText(null);
+			radioContains.setSelected(true);
 		default:
 			//System.out.println("That action is not yet handled");
 			break;
