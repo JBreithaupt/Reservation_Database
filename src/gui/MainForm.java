@@ -2,10 +2,13 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Calendar.DateAD;
 
@@ -30,6 +33,14 @@ public class MainForm implements ActionListener {
 	private static final int TEXT_WIDTH = 40;
 	private static final String TITLE = "Reservation Manager";
 
+	/**
+	 * Generates a JFrame and the requisite buttons and container objects
+	 * 
+	 * @param f
+	 *            the JFrame to have stuff added to it
+	 * @return the same JFrame passed in with added buttons and text to provide
+	 *         a full GUI
+	 */
 	private static JFrame Boxify(JFrame f) {
 		JPanel radioPane = new JPanel();
 		radioPane.setLayout(new BoxLayout(radioPane, BoxLayout.Y_AXIS));
@@ -44,7 +55,10 @@ public class MainForm implements ActionListener {
 
 		JMenu menuFile = new JMenu("File");
 		JMenuItem itemFile = new JMenuItem("Exit");
+		JMenuItem itemNew = new JMenuItem("Different DB");
 		itemFile.addActionListener(new MainForm());
+		itemNew.addActionListener(new MainForm());
+		menuFile.add(itemNew);
 		menuFile.add(itemFile);
 		mb.add(menuFile);
 
@@ -105,6 +119,9 @@ public class MainForm implements ActionListener {
 		return f;
 	}
 
+	/**
+	 * Initializes the GUI.
+	 */
 	public static void initGUI() {
 		f = new JFrame(TITLE);
 		f = Boxify(f);
@@ -114,6 +131,9 @@ public class MainForm implements ActionListener {
 	}
 
 	@Override
+	/**
+	 * Action Listener.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String sender = e.getActionCommand().toLowerCase();
 		System.out.println(sender);
@@ -121,6 +141,26 @@ public class MainForm implements ActionListener {
 		switch (sender) {
 		case "exit":
 			System.exit(0);
+			break;
+
+		/*
+		 * Somewhat hacked together way of chosing a different DB. But better
+		 * than not having it at all.
+		 */
+		case "different db":
+			File database;
+			JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					"Reservation Binary file", "dat");
+			fc.setFileFilter(filter);
+			int returnVal = JFileChooser.CANCEL_OPTION;
+			returnVal = fc.showOpenDialog(new Frame());
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				database = fc.getSelectedFile();
+				Database.load(database);
+			}
+
 			break;
 		case "search":
 			// TODO Joe, you need to have the radio buttons change the
@@ -135,7 +175,7 @@ public class MainForm implements ActionListener {
 			 * Name: 3
 			 */
 
-			//DateAD dateToFind;
+			// DateAD dateToFind;
 			searcher = new Searches();
 			if (!searchBox.getText().isEmpty()) {
 
