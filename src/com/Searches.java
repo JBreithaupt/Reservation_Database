@@ -88,7 +88,8 @@ public class Searches {
 	 */
 
 	private void binarySearch(String nameToFind, byte typeOfSearch) {
-		List<Reservation> newList = new ArrayList<Reservation>();;
+		
+		
 		switch (typeOfSearch) {
 		case Reservation.NAME:
 			while (reservationList.size() > 2) {
@@ -109,20 +110,21 @@ public class Searches {
 			}
 			if (reservationList.get(1).getName()
 					.compareToIgnoreCase(nameToFind) == 0) {
-				newList.add(reservationList.get(1));
+				matchingList.add(reservationList.get(1));
 			}
 			if (reservationList.get(0).getName()
 					.compareToIgnoreCase(nameToFind) == 0) {
-				newList.add(reservationList.get(0));
+				matchingList.add(reservationList.get(0));
 			}
-
+			
+			break;
 		case Reservation.PARTIAL_NAME:
 
 			while (reservationList.size() > 2) {
 				int midpoint = reservationList.size() / 2;
 
 				if (!reservationList.get(midpoint).getName().toLowerCase()
-						.contains(nameToFind.toLowerCase())) {
+						.startsWith(nameToFind.toLowerCase())) {
 					if (reservationList.get(midpoint).getName()
 							.compareToIgnoreCase(nameToFind) < 0) {
 						reservationList = reservationList.subList(0, midpoint);
@@ -137,12 +139,13 @@ public class Searches {
 			}
 			if (reservationList.get(1).getName().contains(
 					nameToFind.toLowerCase())) {
-				newList.add(reservationList.get(1));
+				matchingList.add(reservationList.get(1));
 			}
 			if (reservationList.get(0).getName().contains(
 					nameToFind.toLowerCase())) {
-				newList.add(reservationList.get(0));
+				matchingList.add(reservationList.get(0));
 			}
+			break;
 		}
 	}
 
@@ -227,6 +230,7 @@ public class Searches {
 		for (int i = 0; i < matchingList.size(); i++) {
 			out[i] = matchingList.get(i);
 		}
+		System.out.println(matchingList.toString());
 		matchingList.clear();
 		return out;
 	}
