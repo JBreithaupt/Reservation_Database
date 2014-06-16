@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,8 @@ public class MainForm implements ActionListener {
 		JPanel searchPane = new JPanel();
 		searchPane.setLayout(new BoxLayout(searchPane, BoxLayout.X_AXIS));
 		JPanel textPane = new JPanel();
+		textPane.setLayout(new BoxLayout(textPane, BoxLayout.Y_AXIS));
+
 		mb = new JMenuBar();
 
 		JMenu menuFile = new JMenu("File");
@@ -46,6 +49,7 @@ public class MainForm implements ActionListener {
 		buttonSearch = new JButton("Search");
 		buttonSearch.addActionListener(new MainForm());
 		searchPane.add(searchBox);
+		searchPane.add(Box.createRigidArea(new Dimension(10, 0)));
 		searchPane.add(buttonSearch);
 
 		ButtonGroup radios = new ButtonGroup();
@@ -62,21 +66,30 @@ public class MainForm implements ActionListener {
 		radios.add(radioFullName);
 		radios.add(radioDate);
 		radios.add(radioDateEnd);
+		radioPane.add(Box.createRigidArea(new Dimension(10, 10)));
+
 		radioPane.add(radioContains);
 		radioPane.add(radioFullName);
 		radioPane.add(radioDate);
 		radioPane.add(radioDateEnd);
 
 		text = new JTextArea();
+		labelResults = new JLabel("Results:");
 		text.setColumns(TEXT_WIDTH);
 		text.setRows(TEXT_HEIGHT);
 		text.setEditable(false);
+		textPane.add(Box.createRigidArea(new Dimension(0, 10)));
+		textPane.add(labelResults);
 		textPane.add(text);
 
 		buttonClear = new JButton("Clear");
 		buttonExit = new JButton("Exit");
+		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
+
 		buttonPane.add(buttonClear);
 		buttonClear.addActionListener(new MainForm());
+		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
+
 		buttonPane.add(buttonExit);
 		buttonExit.addActionListener(new MainForm());
 
@@ -99,7 +112,6 @@ public class MainForm implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		String sender = e.getActionCommand().toLowerCase();
 		System.out.println(sender);
 
@@ -167,7 +179,7 @@ public class MainForm implements ActionListener {
 	}
 
 	
-	private Reservation[] results;
+	private static Reservation[] results;
 	private Searches searcher = new Searches();
 	private static JRadioButton radioDateEnd;
 	private static JButton buttonClear;
@@ -180,4 +192,5 @@ public class MainForm implements ActionListener {
 	private static JRadioButton radioFullName;
 	private static JTextArea searchBox;
 	private static JTextArea text;
+	private static JLabel labelResults;
 }
