@@ -121,12 +121,12 @@ public class MainForm implements ActionListener {
 			DateAD dateToFind;
 			if (radioFullName.isSelected()) {
 				searcher.setToSearchFor(Reservation.NAME);
-				searcher.search(searchBox.getText(), searcher.getToSearchFor());
+				results = searcher.search(searchBox.getText(), searcher.getToSearchFor());
 			}
 			if (radioContains.isSelected()) {
 				searcher.setToSearchFor(Reservation.PARTIAL_NAME);
 				searcher.setToSearchFor(Reservation.NAME);
-				searcher.search(searchBox.getText(), searcher.getToSearchFor());
+				results = searcher.search(searchBox.getText(), searcher.getToSearchFor());
 				
 			}
 			
@@ -159,7 +159,7 @@ public class MainForm implements ActionListener {
 
 	
 	private Reservation[] results;
-	private Searches searcher;
+	private Searches searcher = new Searches();
 	private static JRadioButton radioDateEnd;
 	private static JButton buttonClear;
 	private static JButton buttonExit;

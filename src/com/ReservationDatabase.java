@@ -34,6 +34,7 @@ public class ReservationDatabase {
 		}
 
 		Database.load(database);
+		Database.sortAll();
 		MainForm.initGUI();
 	}
 

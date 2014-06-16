@@ -14,9 +14,9 @@ import java.io.*;
 public class Database {
 
 	static Reservation[] reservations;
-	static int[] nameSort;
-	static int[] dateArriveSort;
-	static int[] dateDepartSort;
+	static Reservation[] nameSort;
+	static Reservation[] dateArriveSort;
+	static Reservation[] dateDepartSort;
 
 	/**
 	 * 
@@ -52,7 +52,16 @@ public class Database {
 	
 	public static void sortAll() {
 		
+		nameSort = reservations.clone();
+		dateArriveSort = reservations.clone();
+		dateDepartSort = reservations.clone();
 		
+		Reservation.setCompare(nameSort, Reservation.NAME);
+		Sorts.quickSort(nameSort);
+		Reservation.setCompare(dateArriveSort, Reservation.ARRIVAL);
+		Sorts.quickSort(dateArriveSort);
+		Reservation.setCompare(dateArriveSort, Reservation.DEPART);
+		Sorts.quickSort(dateDepartSort);
 		
 	}
 

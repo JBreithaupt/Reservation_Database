@@ -1,5 +1,6 @@
 package com;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Calendar.DateAD;
@@ -22,8 +23,8 @@ public class Searches {
 	 */
 	private byte toSearchFor = 0;
 
-	private List<Reservation> reservationList;
-	private List<Reservation> matchingList;
+	private List<Reservation> reservationList = new ArrayList<Reservation>();;
+	private List<Reservation> matchingList = new ArrayList<Reservation>();
 
 	/**
 	 * converts a Reservation array to a List.
@@ -36,19 +37,19 @@ public class Searches {
 		case Reservation.NAME:
 		case Reservation.PARTIAL_NAME:
 			for (int i = 0; i < reservationArray.length; i++) {
-				reservationList.add(reservationArray[Database.nameSort[i]]);
+				reservationList.add(Database.nameSort[i]);
 			}
 			break;
 		case Reservation.ARRIVAL:
 			for (int i = 0; i < reservationArray.length; i++) {
 				reservationList
-						.add(reservationArray[Database.dateArriveSort[i]]);
+						.add(Database.dateArriveSort[i]);
 			}
 			break;
 		case Reservation.DEPART:
 			for (int i = 0; i < reservationArray.length; i++) {
 				reservationList
-						.add(reservationArray[Database.dateDepartSort[i]]);
+						.add(Database.dateDepartSort[i]);
 			}
 			break;
 		}
@@ -96,14 +97,10 @@ public class Searches {
 						.toLowerCase()) {
 					if (reservationList.get(midpoint).getName()
 							.compareToIgnoreCase(nameToFind) < 0) {
-						newList = reservationList.subList(0, midpoint);
-						reservationList.clear();
-						reservationList = newList;
+						reservationList = reservationList.subList(0, midpoint);
 					} else {
-						newList = reservationList.subList(midpoint,
+						reservationList = reservationList.subList(midpoint,
 								reservationList.size());
-						reservationList.clear();
-						reservationList = newList;
 					}
 				} else {
 					matchingList.add(reservationList.get(midpoint));
@@ -113,10 +110,10 @@ public class Searches {
 					.compareToIgnoreCase(nameToFind) == 0) {
 				newList.add(reservationList.get(1));
 			}
-			if (reservationList.get(2).getName()
-					.compareToIgnoreCase(nameToFind) == 0) {
-				newList.add(reservationList.get(2));
-			}
+//			if (reservationList.get(2).getName()
+//					.compareToIgnoreCase(nameToFind) == 0) {
+//				newList.add(reservationList.get(2));
+//			}
 
 		case Reservation.PARTIAL_NAME:
 
@@ -127,14 +124,10 @@ public class Searches {
 						.contains(nameToFind.toLowerCase())) {
 					if (reservationList.get(midpoint).getName()
 							.compareToIgnoreCase(nameToFind) < 0) {
-						newList = reservationList.subList(0, midpoint);
-						reservationList.clear();
-						reservationList = newList;
+						reservationList = reservationList.subList(0, midpoint);
 					} else {
-						newList = reservationList.subList(midpoint,
+						reservationList = reservationList.subList(midpoint,
 								reservationList.size());
-						reservationList.clear();
-						reservationList = newList;
 					}
 				} else {
 					matchingList.add(reservationList.get(midpoint));
@@ -144,10 +137,10 @@ public class Searches {
 					nameToFind.toLowerCase())) {
 				newList.add(reservationList.get(1));
 			}
-			if (reservationList.get(2).getName().contains(
-					nameToFind.toLowerCase())) {
-				newList.add(reservationList.get(2));
-			}
+//			if (reservationList.get(2).getName().contains(
+//					nameToFind.toLowerCase())) {
+//				newList.add(reservationList.get(2));
+//			}
 		}
 	}
 
@@ -169,14 +162,10 @@ public class Searches {
 				if (reservationList.get(midpoint).getDateArrival() != dateToFind) {
 					if (reservationList.get(midpoint).getDateArrival()
 							.compareTo(dateToFind) < 0) {
-						newList = reservationList.subList(0, midpoint);
-						reservationList.clear();
-						reservationList = newList;
+						reservationList = reservationList.subList(0, midpoint);
 					} else {
-						newList = reservationList.subList(midpoint,
+						reservationList = reservationList.subList(midpoint,
 								reservationList.size());
-						reservationList.clear();
-						reservationList = newList;
 					}
 				} else {
 					matchingList.add(reservationList.get(midpoint));
@@ -195,14 +184,10 @@ public class Searches {
 				if (reservationList.get(midpoint).getDateDepart() != dateToFind) {
 					if (reservationList.get(midpoint).getDateDepart()
 							.compareTo(dateToFind) < 0) {
-						newList = reservationList.subList(0, midpoint);
-						reservationList.clear();
-						reservationList = newList;
+						reservationList = reservationList.subList(0, midpoint);
 					} else {
-						newList = reservationList.subList(midpoint,
+						reservationList = reservationList.subList(midpoint,
 								reservationList.size());
-						reservationList.clear();
-						reservationList = newList;
 					}
 				} else {
 					matchingList.add(reservationList.get(midpoint));
