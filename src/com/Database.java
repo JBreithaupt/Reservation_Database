@@ -46,8 +46,16 @@ public class Database {
 		}
 
 		System.out.println("Read binary file " + file);
+		
 
 		return loaded;
+	}
+	
+	public static void print() {
+		
+		for (Reservation res : reservations) {
+			System.out.println(res);
+		}
 	}
 	
 	public static void sortAll() {

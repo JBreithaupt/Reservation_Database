@@ -23,7 +23,7 @@ public class Searches {
 	 */
 	private byte toSearchFor = 0;
 
-	private List<Reservation> reservationList = new ArrayList<Reservation>();;
+	private List<Reservation> reservationList = new ArrayList<Reservation>();
 	private List<Reservation> matchingList = new ArrayList<Reservation>();
 
 	/**
