@@ -42,14 +42,12 @@ public class Searches {
 			break;
 		case Reservation.ARRIVAL:
 			for (int i = 0; i < reservationArray.length; i++) {
-				reservationList
-						.add(Database.dateArriveSort[i]);
+				reservationList.add(Database.dateArriveSort[i]);
 			}
 			break;
 		case Reservation.DEPART:
 			for (int i = 0; i < reservationArray.length; i++) {
-				reservationList
-						.add(Database.dateDepartSort[i]);
+				reservationList.add(Database.dateDepartSort[i]);
 			}
 			break;
 		}
@@ -88,8 +86,7 @@ public class Searches {
 	 */
 
 	private void binarySearch(String nameToFind, byte typeOfSearch) {
-		
-		
+
 		switch (typeOfSearch) {
 		case Reservation.NAME:
 			while (reservationList.size() > 2) {
@@ -108,15 +105,17 @@ public class Searches {
 					reservationList.remove(midpoint);
 				}
 			}
-			if (reservationList.get(1).getName()
-					.compareToIgnoreCase(nameToFind) == 0) {
-				matchingList.add(reservationList.get(1));
+			if (reservationList.size() == 2) {
+				if (reservationList.get(1).getName()
+						.compareToIgnoreCase(nameToFind) == 0) {
+					matchingList.add(reservationList.get(1));
+				}
 			}
 			if (reservationList.get(0).getName()
 					.compareToIgnoreCase(nameToFind) == 0) {
 				matchingList.add(reservationList.get(0));
 			}
-			
+
 			break;
 		case Reservation.PARTIAL_NAME:
 
@@ -137,12 +136,14 @@ public class Searches {
 					reservationList.remove(midpoint);
 				}
 			}
-			if (reservationList.get(1).getName().contains(
-					nameToFind.toLowerCase())) {
-				matchingList.add(reservationList.get(1));
+			if (reservationList.size() == 2) {
+				if (reservationList.get(1).getName()
+						.contains(nameToFind.toLowerCase())) {
+					matchingList.add(reservationList.get(1));
+				}
 			}
-			if (reservationList.get(0).getName().contains(
-					nameToFind.toLowerCase())) {
+			if (reservationList.get(0).getName()
+					.contains(nameToFind.toLowerCase())) {
 				matchingList.add(reservationList.get(0));
 			}
 			break;
@@ -151,8 +152,9 @@ public class Searches {
 
 	/**
 	 * This method should do a binarySearch by DateAD.
+	 * 
 	 * @param reservationArray
-	 *            the Array to Search
+	 *            the Array t o Search
 	 * @param dateToFind
 	 *            the Date to find
 	 * @param typeOfSearch
@@ -166,7 +168,7 @@ public class Searches {
 				int midpoint = reservationList.size() / 2;
 				if (reservationList.get(midpoint).getDateArrival() != dateToFind) {
 					if (reservationList.get(midpoint).getDateArrival()
-							.compareTo(dateToFind) < 0) {
+							.compareTo(dateToFind) > 0) {
 						reservationList = reservationList.subList(0, midpoint);
 					} else {
 						reservationList = reservationList.subList(midpoint,
@@ -188,7 +190,7 @@ public class Searches {
 				int midpoint = reservationList.size() / 2;
 				if (reservationList.get(midpoint).getDateDepart() != dateToFind) {
 					if (reservationList.get(midpoint).getDateDepart()
-							.compareTo(dateToFind) < 0) {
+							.compareTo(dateToFind) > 0) {
 						reservationList = reservationList.subList(0, midpoint);
 					} else {
 						reservationList = reservationList.subList(midpoint,
@@ -211,6 +213,7 @@ public class Searches {
 
 	/**
 	 * Search by either DateAD or String (DateAD parsing not implemented).
+	 * 
 	 * @param toFind
 	 *            the "object" we are looking for, either a String or DateAD
 	 * @param typeOfSearch
@@ -221,9 +224,11 @@ public class Searches {
 	public Reservation[] search(Object toFind, byte typeOfSearch) {
 		toList(Database.reservations, typeOfSearch);
 
-		if (typeOfSearch == Reservation.NAME || typeOfSearch == Reservation.PARTIAL_NAME) {
+		if (typeOfSearch == Reservation.NAME
+				|| typeOfSearch == Reservation.PARTIAL_NAME) {
 			binarySearch((String) toFind, typeOfSearch);
-		} else if (typeOfSearch == Reservation.ARRIVAL || typeOfSearch == Reservation.DEPART) {
+		} else if (typeOfSearch == Reservation.ARRIVAL
+				|| typeOfSearch == Reservation.DEPART) {
 			binarySearch(new DateAD((String) toFind), typeOfSearch);
 		}
 		Reservation[] out = new Reservation[matchingList.size()];
@@ -233,5 +238,18 @@ public class Searches {
 		System.out.println(matchingList.toString());
 		matchingList.clear();
 		return out;
+	}
+
+	/**
+	 * parse a String into the correct form to create a DateAD.
+	 * 
+	 * Due to Time Constraints this was not ever finished
+	 * 
+	 * @param aString
+	 * @return
+	 */
+	private String[] parseString(String aString) {
+		return null;
+
 	}
 }
