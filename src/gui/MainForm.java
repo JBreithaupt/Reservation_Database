@@ -8,8 +8,7 @@ import javax.swing.*;
 
 import Calendar.DateAD;
 
-import com.Reservation;
-import com.Searches;
+import com.*;
 
 /**
  * A GUI for the reservation database.
@@ -113,6 +112,7 @@ public class MainForm implements ActionListener {
 			// I'm pretty sure that's all we're missing.
 			
 			// seen 6/14/14 -Joe
+			// Bradley couldn't wait and fixed.  6/16/2014 -Bradley
 			/*
 			 * toSearchFor = Name: 0 Arrival Date: 1 Departure Date: 2 Partial
 			 * Name: 3
