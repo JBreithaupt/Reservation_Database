@@ -5,13 +5,14 @@ import java.util.List;
 import Calendar.DateAD;
 
 /**
- * Searches.java /src/com/Searches <p>
- * A class to contain all searches needed for project 4.
- *         Compiled in JDK 8 Tested on: Windows 8.1 (SP 1) AMD 8350 @ 4.26 GHZ
- *         16 GB 1866 MHz GSkill Ram Using Eclipse Version: Kepler Service
- *         Release 2
+ * Searches.java /src/com/Searches
+ * <p>
+ * A class to contain all searches needed for project 4. Compiled in JDK 8
+ * Tested on: Windows 8.1 (SP 1) AMD 8350 @ 4.26 GHZ 16 GB 1866 MHz GSkill Ram
+ * Using Eclipse Version: Kepler Service Release 2
+ * 
  * @version 1.0
- * @author Bradley 
+ * @author Bradley
  */
 public class Searches {
 
@@ -144,12 +145,12 @@ public class Searches {
 					matchingList.add(reservationList.get(midpoint));
 				}
 			}
-			if (reservationList.get(1).getName()
-					.contains(nameToFind.toLowerCase())) {
+			if (reservationList.get(1).getName().contains(
+					nameToFind.toLowerCase())) {
 				newList.add(reservationList.get(1));
 			}
-			if (reservationList.get(2).getName()
-					.contains(nameToFind.toLowerCase())) {
+			if (reservationList.get(2).getName().contains(
+					nameToFind.toLowerCase())) {
 				newList.add(reservationList.get(2));
 			}
 		}

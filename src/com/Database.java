@@ -24,7 +24,7 @@ public class Database {
 	 * @param file
 	 * @return whether or not the file is loaded
 	 */
-	public boolean load(File file) {
+	public static boolean load(File file) {
 
 		boolean loaded = false;
 
